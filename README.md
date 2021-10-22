@@ -1,13 +1,13 @@
 # Fast Runtime Type Casting
 
-This Library give you C++ Fast Runtime Type Casting faster than dynamic_cast.         
+This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( similar to Unreal Engine's CastTo, IsChildOf ).         
 You don't need RTTI compiler option.         
 You can apply this library to your project with only two code lines for each class.        
 
 ## Features
 
 1. Fast Dynamic Cast ( similar to Unreal Engine's CastTo )
-2. No Runtime Overhead for evaluating Class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ) 
+2. No Runtime Overhead for evaluating class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ) 
 
 ## Performance
 
@@ -17,14 +17,14 @@ Fast Runtime Type Casting is 2.0x faster than dynamic_cast.
 
 ## How Works
 
-1. At Compile time, Every Class evaluate class hierarchy data at compile time.
+1. Every Class's class hierarchy data is evaluated at compile time.
 ```
 1. Current Class's Hierarchy Depth ( ex) Root Class have value 1, Root Class's Child Class have value 2. ..... )
 2. Current Class's Hierarchy Data Container ( Every class have this as static variable ) : [ Current Class TypeID ] [ Current Class's Parent Class TypeID ] [ Parent Class's Parent Class TypeID ] .... [ Root Class Type ID ]
 ```
 
 
-2. At Run time, Use this data for check if can type cast
+2. At Run time, Use class hierarchy data to check if can type cast
 ```
 Cast Object A's Pointer Type T ( Polymorphic ) to Type Q.
 
@@ -58,7 +58,8 @@ if(object->IsChildOf<MeshCollider>() == true)
 ## Limitation
 
 - This library require at least C++17.
-- Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )       
+- Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )     
+- Can do type cast only between classes derived from DObject root class   
 
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/2021/10/20/Reflection.html)
