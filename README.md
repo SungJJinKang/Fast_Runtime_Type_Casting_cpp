@@ -11,6 +11,12 @@ You can apply this library to your project with only two code lines for each cla
 1. Fast Dynamic Cast ( similar to Unreal Engine's CastTo )
 2. No Runtime Overhead for evaluating Class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ) 
 
+## Performance
+
+<img width="444" alt="20211022235722" src="https://user-images.githubusercontent.com/33873804/138476797-89acb3c9-b7ae-496b-b99a-a110ea5fccd4.png">
+
+Fast Runtime Type Casting is 3.5x faster than dynamic_cast.
+
 ## How Works
 
 1. At Compile time, Every Class evaluate class hierarchy data at compile time.
