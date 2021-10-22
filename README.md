@@ -20,7 +20,7 @@ You can apply this library to your project with only two code lines for each cla
 ```
 
 
-2. At Run time, Use this data for check if a object if child class of any class.
+2. At Run time, Use this data for check if can type cast
 ```
 Cast Object A's Pointer Type T ( Polymorphic ) to Type Q.
 
