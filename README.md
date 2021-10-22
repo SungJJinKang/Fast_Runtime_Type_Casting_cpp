@@ -1,13 +1,13 @@
 # Fast Runtime Type Casting
 
-This Library give you C++ Fast Runtime Type Casting faster than dynamic_cast.         
+This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( similar to Unreal Engine's CastTo, IsChildOf ).         
 You don't need RTTI compiler option.         
 You can apply this library to your project with only two code lines for each class.        
 
 ## Features
 
 1. Fast Dynamic Cast ( similar to Unreal Engine's CastTo )
-2. No Runtime Overhead for evaluating Class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ) 
+2. No Runtime Overhead for evaluating class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ) 
 
 ## Performance
 
