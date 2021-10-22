@@ -38,15 +38,22 @@ Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierar
 
 ## HOW TO USE
 ```
+class Collider3DComponent : public DObject
+{
+	DOBJECT_CLASS_BODY(Collider3DComponent) <- Put Current Class Name
+	DOBJECT_CLASS_BASE_CHAIN(DObject) <- Put Parent Class Name
+}
 class MeshCollider : public Collider3DComponent
 {
 	DOBJECT_CLASS_BODY(MeshCollider) <- Put Current Class Name
 	DOBJECT_CLASS_BASE_CHAIN(Collider3DComponent) <- Put Parent Class Name
 }
 
-Collider3DComponent* object = ~~;
+Collider3DComponent* object = new MeshCollider();
+
 MeshCollider* meshCol = CastTo<MeshCollider*>(object);
-if(meshCol != nullptr)
+
+if(object->IsChildOf<MeshCollider>() == true)
 {
 	~~
 }
@@ -54,7 +61,7 @@ if(meshCol != nullptr)
 
 ## Limitation
 
-- This library require more than C++17.
+- This library require at least C++17.
 - Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/2021/10/20/Reflection.html)
