@@ -17,14 +17,14 @@ Fast Runtime Type Casting is 2.0x faster than dynamic_cast.
 
 ## How Works
 
-1. At Compile time, Every Class evaluate class hierarchy data at compile time.
+1. Every Class's class hierarchy data is evaluated at compile time.
 ```
 1. Current Class's Hierarchy Depth ( ex) Root Class have value 1, Root Class's Child Class have value 2. ..... )
 2. Current Class's Hierarchy Data Container ( Every class have this as static variable ) : [ Current Class TypeID ] [ Current Class's Parent Class TypeID ] [ Parent Class's Parent Class TypeID ] .... [ Root Class Type ID ]
 ```
 
 
-2. At Run time, Use this data for check if can type cast
+2. At Run time, Use class hierarchy data to check if can type cast
 ```
 Cast Object A's Pointer Type T ( Polymorphic ) to Type Q.
 
