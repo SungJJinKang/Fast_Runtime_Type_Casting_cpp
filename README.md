@@ -13,9 +13,9 @@ You can apply this library to your project with only two code lines for each cla
 
 ## Performance
 
-<img width="444" alt="20211022235722" src="https://user-images.githubusercontent.com/33873804/138476797-89acb3c9-b7ae-496b-b99a-a110ea5fccd4.png">
+<img width="437" alt="20211023013700" src="https://user-images.githubusercontent.com/33873804/138491569-e507bfb8-be3b-4d3e-989e-54abe565a927.png">
 
-Fast Runtime Type Casting is 3.5x faster than dynamic_cast.
+Fast Runtime Type Casting is 2.0x faster than dynamic_cast.
 
 ## How Works
 
