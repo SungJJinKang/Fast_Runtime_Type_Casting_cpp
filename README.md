@@ -36,15 +36,13 @@ Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierar
 
 ## HOW TO USE
 ```
-class Collider3DComponent : public DObject
+class Collider3DComponent : public FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS
 {
-	DOBJECT_CLASS_BODY(Collider3DComponent) <- Put Current Class Name
-	DOBJECT_CLASS_BASE_CHAIN(DObject) <- Put Parent Class Name
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(Collider3DComponent, FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS) <- Pass Current Class Name, Base Class Name
 }
 class MeshCollider : public Collider3DComponent
 {
-	DOBJECT_CLASS_BODY(MeshCollider) <- Put Current Class Name
-	DOBJECT_CLASS_BASE_CHAIN(Collider3DComponent) <- Put Parent Class Name
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(MeshCollider, Collider3DComponent) <- Pass Current Class Name, Base Class Name
 }
 
 Collider3DComponent* object = new MeshCollider();

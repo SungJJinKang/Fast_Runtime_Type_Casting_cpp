@@ -1,37 +1,46 @@
 #include <cassert>
 
-#include "../DObject.h"
-#include "../DObjectGlobals.h"
+#include "../FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS.h"
+#include "../FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_Globals.h"
 
-class B : public DObject
+class B : public FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS
 {
-	DOBJECT_CLASS_BODY(B)
-	DOBJECT_CLASS_BASE_CHAIN(DObject)
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(B, FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS)
 };
 
 class C : public B
 {
-	DOBJECT_CLASS_BODY(C)
-	DOBJECT_CLASS_BASE_CHAIN(B)
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(C, B)
 };
 
 class D : public C
 {
-	DOBJECT_CLASS_BODY(D)
-	DOBJECT_CLASS_BASE_CHAIN(C)
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(D, C)
 };
+
+class E : public C
+{
+	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(E, C)
+};
+
+
 
 int main()
 {
-	DObject* dObjectC = new C();
+	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS* dObjectC = new C();
 	C* cc = new C();
-	DObject* dObjectD = new D();
+	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS* dObjectD = new D();
 	D* dd = new D();
 
 	assert(dObjectC->IsChildOf<B>() == true);
 	assert(dObjectC->IsChildOf<C>() == true);
-	
-	assert(cc->IsChildOf<DObject>() == true);
+	assert(dObjectC->IsChildOf<D>() == false);
+
+	assert(IsChildOf<B>(dObjectC) == true);
+	assert(IsChildOf<C>(dObjectC) == true);
+	assert(IsChildOf<D>(dObjectC) == false);
+
+	assert(cc->IsChildOf<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS>() == true);
 	assert(cc->IsChildOf<B>() == true);
 
 	assert(dObjectC->IsChildOf<D>() == false);
@@ -40,7 +49,7 @@ int main()
 	assert(CastTo<C*>(dObjectC) != nullptr);
 	assert(CastTo<D*>(dObjectC) == nullptr);
 
-	assert(CastTo<DObject*>(cc) != nullptr); // Be Cast at compile time
+	assert(CastTo<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS*>(cc) != nullptr); // Be Cast at compile time
 	assert(CastTo<C*>(cc) != nullptr); // Be Cast at compile time
 	assert(CastTo<D*>(cc) == nullptr); 
 	assert(CastTo<D*>(dd) != nullptr); // Be Cast at compile time
