@@ -4,8 +4,6 @@ This Library give you C++ Fast Runtime Type Casting faster than dynamic_cast.
 You don't need RTTI compiler option.         
 You can apply this library to your project with only two code lines for each class.        
 
-[https://github.com/SungJJinKang/DoomsEngine/tree/main/Doom3/Source/Core/DObject](https://github.com/SungJJinKang/DoomsEngine/tree/main/Doom3/Source/Core/DObject)
-
 ## Features
 
 1. Fast Dynamic Cast ( similar to Unreal Engine's CastTo )
@@ -62,6 +60,7 @@ if(object->IsChildOf<MeshCollider>() == true)
 ## Limitation
 
 - This library require at least C++17.
-- Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )
+- Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )       
+
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/2021/10/20/Reflection.html)
