@@ -95,4 +95,4 @@ CastTo<A>(d) <- Casting Fail, return nullptr. Because it's ambigous. it can cast
 ```
 
 
-[한국어 블로그](https://sungjjinkang.github.io/computerscience/2021/10/20/Reflection.html)
+[한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
