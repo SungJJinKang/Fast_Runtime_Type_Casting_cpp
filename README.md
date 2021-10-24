@@ -9,6 +9,7 @@ You can apply this library to your project with only two code lines for each cla
 1. Fast Dynamic Cast ( O(1) time complexity regardless of inheritance depth ).
 2. No Runtime Overhead for storing class hierarchy information. ( Class Hierarchy Information is evaluated at compile time and stored in exe, dll file ). 
 3. No requirement for external tools.
+4. Portable
 
 ## Performance
 
@@ -60,7 +61,7 @@ if(object->IsChildOf<MeshCollider>() == true)
 
 - This library require at least C++17.
 - Every Class should be derived from one root class ( FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS ) ( similar to Unreal Engine's UObject )     
-- No Support for multiple inheritance ( I'm tryring in it )
+- No Support for multiple inheritance ( I'm working on it )
 - Can do type cast only between classes derived from DObject root class   
 
 
