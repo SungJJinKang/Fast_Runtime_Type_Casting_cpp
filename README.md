@@ -4,6 +4,8 @@ This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( s
 You don't need RTTI compiler option.         
 You can apply this library to your project with only two code lines for each class.        
 
+[한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
+
 ## Features
 
 1. Fast Dynamic Cast ( O(1) time complexity regardless of inheritance depth ).
@@ -95,4 +97,3 @@ CastTo<A>(d) <- Casting Fail, return nullptr. Because it's ambigous. it can cast
 ```
 
 
-[한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
