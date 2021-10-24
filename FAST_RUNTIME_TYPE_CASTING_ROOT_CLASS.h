@@ -15,11 +15,11 @@ private:
 	constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT = 1;
 	constexpr static const std::array<const char*, 1> __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA{ __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID };
 public:
-	D_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()
 	{
 		return 1;
 	}
-	D_FORCE_INLINE constexpr static const char* const* __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const* __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()
 	{
 		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA.data();
 	}
@@ -30,7 +30,7 @@ public:
 public:
 
 	template <typename BASE_TYPE>
-	D_FORCE_INLINE bool IsChildOf() const
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf() const
 	{
 		static_assert(IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(BASE_TYPE));
 
