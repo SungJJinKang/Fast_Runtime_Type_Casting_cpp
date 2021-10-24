@@ -64,5 +64,35 @@ if(object->IsChildOf<MeshCollider>() == true)
 - No Support for multiple inheritance ( I'm working on it )
 - Can do type cast only between classes derived from DObject root class   
 
+## Roadmap
+
+- Support Multiple inheritance.
+- Solve ambigous problem in circular inheritance.     
+```
+class A {};
+
+class B : public virtual(!) A {};
+
+class C : public virtual(!) A {};
+
+class D : public B, public C {};
+
+D* d = new D();
+CastTo<A>(d) <- Casting Success!!
+
+---------
+
+class A {};
+
+class B : public A {};
+
+class C : public A {};
+
+class D : public B, public C {};
+
+D* d = new D();
+CastTo<A>(d) <- Casting Fail, return nullptr. Because it's ambigous. it can cast to A ( base of B ) and A ( base of C )
+```
+
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/2021/10/20/Reflection.html)
