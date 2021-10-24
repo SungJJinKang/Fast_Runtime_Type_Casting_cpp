@@ -7,7 +7,7 @@ You can apply this library to your project with only two code lines for each cla
 ## Features
 
 1. Fast Dynamic Cast ( O(1) time complexity, 'n' is class hierarchy depth ).
-2. No Runtime Overhead for storing class hierarchy information. ( Class Hierarchy Information is evaluated at compile time ). 
+2. No Runtime Overhead for storing class hierarchy information. ( Class Hierarchy Information is evaluated at compile time and stored in exe, dll file ). 
 3. No requirement for external tools.
 
 ## Performance
