@@ -35,7 +35,7 @@ namespace __fast_runtime_type_casting_details
 	{
 		CASTING_STATIC_ASSERT_PAIR(FromCastingType, ToCastingType);
 
-		return (dObject != nullptr && IsChildOf<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType)>(dObject) == true) ? (static_cast<ToCastingType>(dObject) ) : ( nullptr );
+		return (dObject != nullptr && IsChildOf<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType)>(dObject) == true) ? (reinterpret_cast<ToCastingType>(dObject) ) : ( nullptr );
 	}
 
 	template<typename ToCastingType, typename FromCastingType>
@@ -43,7 +43,7 @@ namespace __fast_runtime_type_casting_details
 	{
 		CASTING_STATIC_ASSERT_PAIR(FromCastingType, ToCastingType);
 
-		return static_cast<ToCastingType>(dObject);
+		return reinterpret_cast<ToCastingType>(dObject);
 	}
 }
 
