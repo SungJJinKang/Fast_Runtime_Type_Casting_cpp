@@ -11,6 +11,9 @@ class B : public FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS
 class C : public B
 {
 	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(C, B)
+
+public:
+	virtual void Do(){}
 };
 
 class D : public C
