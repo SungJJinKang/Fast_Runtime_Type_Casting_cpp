@@ -58,7 +58,7 @@ if(object->IsChildOf<MeshCollider>() == true)
 ## Limitation
 
 - This library require at least C++17.
-- Every Class should be derived from one root class ( DObject ) ( similar to Unreal Engine's UObject )     
+- Every Class should be derived from one root class ( FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS ) ( similar to Unreal Engine's UObject )     
 - Can do type cast only between classes derived from DObject root class   
 
 
