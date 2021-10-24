@@ -1,10 +1,10 @@
 #pragma once
 
 
-#if defined(__GNUC__)
-#  define D_FORCE_INLINE __attribute__ ((always_inline))
+#if defined(__GNUC__) || defined( __clang__)
+#  define __FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE __attribute__ ((always_inline))
 #elif defined(_MSC_VER)
-#  define D_FORCE_INLINE __forceinline
+#  define __FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE __forceinline
 #endif
 
 #include <type_traits>

@@ -19,7 +19,7 @@ static_assert("TEST IF IDENTICAL LITERAL STRING IS ALLOCATED ONE TIME" == "TEST 
 		public:																																	\
 		constexpr static const char* const __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID = #CURRENT_CLASS_TYPE;										\
 		public:																																	\
-		D_FORCE_INLINE constexpr static const char* __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC() {										\
+		__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC() {										\
 			return __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;																					\
 		}																																		\
         virtual const char* __FAST_RUNTIME_TYPE_CASTING_GET_CLASS_TYPE_ID() const {																\
@@ -90,11 +90,11 @@ namespace __fast_runtime_type_casting_details
 	constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
 	constexpr static const std::array<const char*, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT> __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT>();			\
 	public:																									\
-	D_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()			\
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()			\
 	{																										\
 		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT;												\
 	}																										\
-	D_FORCE_INLINE constexpr static const char* const * __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()\
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const * __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()\
 	{																										\
 		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA.data();											\
 	}																										\
