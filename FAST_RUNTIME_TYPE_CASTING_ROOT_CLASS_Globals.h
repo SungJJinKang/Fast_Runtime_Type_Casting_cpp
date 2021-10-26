@@ -4,14 +4,14 @@
 
 #include "FAST_RUNTIME_TYPE_CASTING_ROOT_Internals.h"
 
-#include "FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS.h"
 #include "FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_Macros.h"
 
+#include "MultipleInheritance/FastDynamicCast/fast_dynamic_cast.h"
 
 
 #define CASTING_STATIC_ASSERT(CASTING_TYPE)																													\
 static_assert(__FAST_RUNTIME_TYPE_CASTING_IS_POINTER_TYPE(CASTING_TYPE) == true, "Please Pass Pointer Type as IsA function's template argument");										\
-static_assert(IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(CASTING_TYPE)) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");		\
+static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(CASTING_TYPE)) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");		\
 
 #define CASTING_STATIC_ASSERT_PAIR(FROM_CASTING_TYPE, TO_CASTING_TYPE)		\
 		CASTING_STATIC_ASSERT(FROM_CASTING_TYPE);							\
@@ -26,8 +26,8 @@ namespace fast_cast
 	{
 		static_assert(std::is_pointer_v<CompareType> == false, "Don't Pass Pointer Type as IsA function's template argument");
 		static_assert(std::is_pointer_v<FromType> == false, "Don't Pass Pointer Type as IsA function's template argument");
-		static_assert(IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(CompareType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
-		static_assert(IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(FromType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
+		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(CompareType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
+		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(FromType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
 
 		if constexpr ( std::is_base_of_v<CompareType, FromType> == true)
 		{
@@ -50,8 +50,15 @@ namespace __fast_runtime_type_casting_details
 	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE ToCastingType CastToImp(FromCastingType dObject)
 	{
 		CASTING_STATIC_ASSERT_PAIR(FromCastingType, ToCastingType);
-
-		return (dObject != nullptr && fast_cast::IsChildOf<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType)>(dObject) == true) ? (reinterpret_cast<ToCastingType>(dObject) ) : ( nullptr );
+		
+		if(dObject->__FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() == false)
+		{
+			return (fast_cast::IsChildOf<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType)>(dObject) == true) ? (reinterpret_cast<ToCastingType>(dObject)) : (nullptr); // reinterpret_cast is acceptable, because every root class has virtual table.
+		}
+		else
+		{// use https://github.com/SungJJinKang/FastDynamicCast
+			return fast_dcast::fast_dynamic_cast<ToCastingType>(dObject);
+		}		
 	}
 
 	template<typename ToCastingType, typename FromCastingType>
@@ -59,7 +66,7 @@ namespace __fast_runtime_type_casting_details
 	{
 		CASTING_STATIC_ASSERT_PAIR(FromCastingType, ToCastingType);
 
-		return reinterpret_cast<ToCastingType>(dObject);
+		return reinterpret_cast<ToCastingType>(dObject); // reinterpret_cast is acceptable, because every root class has virtual table.
 	}
 }
 
@@ -81,14 +88,25 @@ namespace fast_cast
 	{
 		CASTING_STATIC_ASSERT_PAIR(FromCastingType, ToCastingType);
 
-		if constexpr (std::is_base_of_v<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType), __FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(FromCastingType)> == true)
+		ToCastingType castedType = nullptr;
+
+		if(dObject != nullptr)
 		{
-			return __fast_runtime_type_casting_details::CastToUncheckedImp<ToCastingType>(dObject);
+			if (
+				(std::is_base_of_v<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType), __FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(FromCastingType)> == true)
+				&&
+				(dObject->__FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() == false)
+			)
+			{
+				castedType = __fast_runtime_type_casting_details::CastToUncheckedImp<ToCastingType>(dObject);
+			}
+			else
+			{
+				castedType = __fast_runtime_type_casting_details::CastToImp<ToCastingType>(dObject);
+			}
 		}
-		else
-		{
-			return __fast_runtime_type_casting_details::CastToImp<ToCastingType>(dObject);
-		}
+
+		return castedType;
 	}
 
 	template<typename ToCastingType, typename FromCastingType>

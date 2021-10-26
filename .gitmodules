@@ -1,0 +1,3 @@
+[submodule "MultipleInheritance/FastDynamicCast"]
+	path = MultipleInheritance/FastDynamicCast
+	url = https://github.com/SungJJinKang/FastDynamicCast.git
