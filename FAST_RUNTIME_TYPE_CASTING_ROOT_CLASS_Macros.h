@@ -4,14 +4,11 @@
 #include <array>
 #include <stddef.h>
 
-#include "FAST_RUNTIME_TYPE_CASTING_ROOT_Macros.h"
+#include "FAST_RUNTIME_TYPE_CASTING_ROOT_Internals.h"
 
 class FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS;
 
 #define IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(CURRENT_CLASS_TYPE) std::is_base_of_v<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS, CURRENT_CLASS_TYPE>
-
-
-static_assert("TEST IF IDENTICAL LITERAL STRING IS ALLOCATED ONE TIME" == "TEST IF IDENTICAL LITERAL STRING IS ALLOCATED ONE TIME");
 
 #ifndef __FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP
 
@@ -77,6 +74,18 @@ namespace __fast_runtime_type_casting_details
 		}
 		return chain_data;
 	}
+
+	struct BaseChain
+	{
+		const size_t mChainCount;
+		const char* const* mChainData;
+
+		constexpr BaseChain(const size_t _chainCount, const char* const* _chainData)
+			: mChainCount(_chainCount), mChainData(_chainData)
+		{
+
+		}
+	};
 }
 
 
@@ -89,19 +98,25 @@ namespace __fast_runtime_type_casting_details
 	private:																									\
 	constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
 	constexpr static const std::array<const char*, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT> __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT>();			\
+	constexpr static const __fast_runtime_type_casting_details::BaseChain __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN{ __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT, __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA.data() };		\
 	public:																									\
 	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()			\
 	{																										\
-		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT;												\
+		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN.mChainCount;											\
 	}																										\
 	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const * __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()\
 	{																										\
-		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN_DATA.data();											\
+		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN.mChainData;											\
+	}																										\
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC()\
+	{																										\
+		return __FAST_RUNTIME_TYPE_CASTING__BASE_CHAIN;														\
 	}																										\
 	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }	\
 	virtual const char* const * __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const {					\
 	static_assert(std::is_base_of_v<BASE_DOBJECT_TYPE_CLASS, std::decay<decltype(*this)>::type> == true, "Current Class Type is not derived from Passed Base ClassType is passed");	\
-	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }
+	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }											\
+	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC(); }	\
 
 /////////////////////////////////
 

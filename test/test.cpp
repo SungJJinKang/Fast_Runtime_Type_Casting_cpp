@@ -39,9 +39,9 @@ int main()
 	assert(dObjectC->IsChildOf<C>() == true);
 	assert(dObjectC->IsChildOf<D>() == false);
 
-	assert(IsChildOf<B>(dObjectC) == true);
-	assert(IsChildOf<C>(dObjectC) == true);
-	assert(IsChildOf<D>(dObjectC) == false);
+	assert(fast_cast::IsChildOf<B>(dObjectC) == true);
+	assert(fast_cast::IsChildOf<C>(dObjectC) == true);
+	assert(fast_cast::IsChildOf<D>(dObjectC) == false);
 
 	assert(cc->IsChildOf<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS>() == true);
 	assert(cc->IsChildOf<B>() == true);
@@ -49,12 +49,12 @@ int main()
 	assert(dObjectC->IsChildOf<D>() == false);
 	assert(cc->IsChildOf<D>() == false);
 
-	assert(CastTo<C*>(dObjectC) != nullptr);
-	assert(CastTo<D*>(dObjectC) == nullptr);
+	assert(fast_cast::CastTo<C*>(dObjectC) != nullptr);
+	assert(fast_cast::CastTo<D*>(dObjectC) == nullptr);
 
-	assert(CastTo<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS*>(cc) != nullptr); // Be Cast at compile time
-	assert(CastTo<C*>(cc) != nullptr); // Be Cast at compile time
-	assert(CastTo<D*>(cc) == nullptr); 
-	assert(CastTo<D*>(dd) != nullptr); // Be Cast at compile time
+	assert(fast_cast::CastTo<FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS*>(cc) != nullptr); // Be Cast at compile time
+	assert(fast_cast::CastTo<C*>(cc) != nullptr); // Be Cast at compile time
+	assert(fast_cast::CastTo<D*>(cc) == nullptr); 
+	assert(fast_cast::CastTo<D*>(dd) != nullptr); // Be Cast at compile time
 	
 }
