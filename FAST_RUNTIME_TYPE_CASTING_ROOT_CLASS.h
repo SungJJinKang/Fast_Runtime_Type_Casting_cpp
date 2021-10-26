@@ -7,30 +7,9 @@
 
 class FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS
 {
-public:																		
-	using __FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE = FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS;				
-	__FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS)					
+	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY
 
-private:
-	constexpr static const __fast_runtime_type_casting_details::BaseChain _BASE_CHAIN{ 1, nullptr };
 public:
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()
-	{
-		return _BASE_CHAIN.mChainCount;
-	}
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const* __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()
-	{
-		return _BASE_CHAIN.mChainData;
-	}
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA()
-	{
-		return _BASE_CHAIN;
-	}
-	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }
-	virtual const char* const* __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }
-	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA(); }
-
-
 	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS();
 	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(const FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS&);
 	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS&&) noexcept;
@@ -38,17 +17,7 @@ public:
 	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS& operator=(FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS&&) noexcept;
 	virtual ~FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS();
 
-	template <typename BASE_TYPE>
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf() const
-	{
-		static_assert(IS_DERIVED_FROM_FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS(BASE_TYPE));
-
-		const __fast_runtime_type_casting_details::BaseChain& this_base_chain = __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN();
-
-		const bool isChild = (this_base_chain.mChainCount >= BASE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()) && (this_base_chain.mChainData[this_base_chain.mChainCount - BASE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()] == BASE_TYPE::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC());
-
-		return isChild;
-	}
+	
 
 };
 
