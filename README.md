@@ -1,25 +1,28 @@
 # Fast Runtime Type Casting
 
-This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( similar to Unreal Engine's CastTo, IsChildOf ).         
-You don't need RTTI compiler option.         
+This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( similar to Unreal Engine's CastTo, IsChildOf ).          
 You can apply this library to your project with only two code lines for each class.        
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
 
 ## Features
 
-1. Fast Dynamic Cast ( O(1) time complexity regardless of inheritance depth ).
+1. Fast Dynamic Cast
 2. No Runtime Overhead for storing class hierarchy information. ( Class Hierarchy Information is evaluated at compile time and stored in exe, dll file ). 
-3. No requirement for external tools.
-4. Portable
+3. Support multiple inheritance
+4. No requirement for external tools.
+5. Portable
 
 ## Performance
 
 <img width="437" alt="20211023013700" src="https://user-images.githubusercontent.com/33873804/138491569-e507bfb8-be3b-4d3e-989e-54abe565a927.png">
 
-Fast Runtime Type Casting is 2.0x faster than dynamic_cast.
+Fast Runtime Type Casting is 2.0x faster than dynamic_cast ( if classes don't have multiple inheritance )
 
 ## How Works
+
+
+### If Class doesn't have multiple inheritance
 
 1. Every Class's class hierarchy data is evaluated at compile time and stored as static variable in the class
 ```
@@ -35,65 +38,43 @@ Cast Object A's Pointer Type T ( Polymorphic ) to Type Q.
 First. If Pointer Type T is child class type of Type Q or trying to same type, Cast it to Type Q without any checking mechanism ( at compile time )
 Second. If not, check if " Object A's Hierarchy Depth ( get with virtual fucntion ) <( more deep ) Type Q's Hierarchy Depth ". If yes, Casting always fail and return nullptr.
 Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierarchy Depth - Type Q's Hierarchy Depth ] == Type Q's TypeID. If yse, Casting success. Or Casting Fail and return nullptr.
-
 ```
+
+### If Class have(!) multiple inheritance
+
+This algorithm is used [https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec](https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec)
 
 ## HOW TO USE
 ```
-class Collider3DComponent : public FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS
+class A
 {
-	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(Collider3DComponent, FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS) <- Pass Current Class Name, Base Class Name
-}
-class MeshCollider : public Collider3DComponent
+	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY(A)
+};
+
+class B : public virtual A
 {
-	FAST_RUNTIME_TYPE_CASTING_DOBJECT_CLASS_BODY(MeshCollider, Collider3DComponent) <- Pass Current Class Name, Base Class Name
-}
+	FAST_RUNTIME_TYPE_CASTING_CLASS_BODY(B, A)
+};
 
-Collider3DComponent* object = new MeshCollider();
+class C : public virtual A
+{
+	FAST_RUNTIME_TYPE_CASTING_CLASS_BODY(C, A)
+};
 
-MeshCollider* meshCol = CastTo<MeshCollider*>(object);
+class D : public virtual B, public virtual C
+{
+	FAST_RUNTIME_TYPE_CASTING_CLASS_BODY(D, B, C)
+};
 
-if(object->IsChildOf<MeshCollider>() == true)
+A* object = new D();
+
+D* Dobject = fast_cast::CastTo<D*>(object);
+if(object->IsChildOf<D>() == true)
 {
 	~~
 }
 ```
 
-## Limitation
+## Limitations
 
-- This library require at least C++17.
-- Every Class should be derived from one root class ( FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS ) ( similar to Unreal Engine's UObject )     
-- No Support for multiple inheritance ( I'm working on it )
-- Can do type cast only between classes derived from DObject root class   
-
-## Roadmap
-
-- Support Multiple inheritance.
-- Solve ambigous problem in circular inheritance.     
-```
-class A {};
-
-class B : public virtual(!) A {};
-
-class C : public virtual(!) A {};
-
-class D : public B, public C {};
-
-D* d = new D();
-CastTo<A>(d) <- Casting Success!!
-
----------
-
-class A {};
-
-class B : public A {};
-
-class C : public A {};
-
-class D : public B, public C {};
-
-D* d = new D();
-CastTo<A>(d) <- Casting Fail, return nullptr. Because it's ambigous. it can cast to A ( base of B ) and A ( base of C )
-```
-
-
+- Require at least C++17
