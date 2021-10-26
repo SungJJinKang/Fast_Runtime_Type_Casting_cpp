@@ -46,7 +46,7 @@ namespace __fast_runtime_type_casting_details
 	template <typename DERIVED_TYPE, typename... MULTIPLE_BASE_TYPE>
 	struct __FAST_RUNTIME_TYPE_CASTING_CHECK_IS_BASE_OF_MULTIPLE
 	{
-		constexpr static const bool value = (std::is_base_of_v<MULTIPLE_BASE_TYPE, DERIVED_TYPE> || ...);
+		constexpr static const bool value = (std::is_base_of_v<MULTIPLE_BASE_TYPE, DERIVED_TYPE> || ...) && ((std::is_same_v<MULTIPLE_BASE_TYPE, DERIVED_TYPE> == false) && ...);
 	};
 }
 

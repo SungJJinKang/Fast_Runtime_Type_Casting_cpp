@@ -21,24 +21,92 @@ static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(__FAST
 
 namespace fast_cast
 {
-	template <typename CompareType, typename FromType>
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf(const FromType* const dObject)
+	template <typename COMPARE_TYPE>
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf(const bool is_multiple_inheritance)
 	{
-		static_assert(std::is_pointer_v<CompareType> == false, "Don't Pass Pointer Type as IsA function's template argument");
+		static_assert(std::is_pointer_v<COMPARE_TYPE> == false, "Don't Pass Pointer Type as IsA function's template argument");
 		static_assert(std::is_pointer_v<FromType> == false, "Don't Pass Pointer Type as IsA function's template argument");
-		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(CompareType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
+		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(COMPARE_TYPE) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
 		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(FromType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
 
-		if constexpr ( std::is_base_of_v<CompareType, FromType> == true)
+		if (dObject == nullptr)
 		{
-			return dObject != nullptr;
+			return false;
 		}
 		else
 		{
+			if constexpr (std::is_base_of_v<COMPARE_TYPE, FromType> == true)
+			{
+				return true;
+			}
+			else
+			{
+				const bool is_multiple_inheritance = dObject->__FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE();
+				if (std::is_same_v<COMPARE_TYPE, FromType> == true && is_multiple_inheritance == false)
+				{
+					return true;
+				}
+				else if (is_multiple_inheritance == false)
+				{
+					const __fast_runtime_type_casting_details::BaseChain& this_base_chain = dObject->__FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN();
+					const bool isChild = (this_base_chain.mChainCount >= COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()) && (this_base_chain.mChainData[this_base_chain.mChainCount - COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()] == COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC());
+					return isChild;
+				}
+				else
+				{
+					return fast_dcast::fast_dynamic_cast<COMPARE_TYPE*>(dObject) != nullptr;
+				}
+			}
 
-			return (dObject != nullptr) && (dObject->IsChildOf<CompareType>());
 		}
+
+
 	}
+
+
+	template <typename COMPARE_TYPE, typename FromType>																																				
+	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf(const FromType* const dObject)																												
+	{
+		static_assert(std::is_pointer_v<COMPARE_TYPE> == false, "Don't Pass Pointer Type as IsA function's template argument");
+		static_assert(std::is_pointer_v<FromType> == false, "Don't Pass Pointer Type as IsA function's template argument");
+		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(COMPARE_TYPE) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
+		static_assert(__FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(FromType) == true, "Please Pass FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS's child Type as IsA function's template argument");
+
+		if(dObject == nullptr)
+		{
+			return false;
+		}
+		else
+		{
+			if constexpr (std::is_base_of_v<COMPARE_TYPE, FromType> == true)
+			{
+				return true;
+			}
+			else
+			{
+				const bool is_multiple_inheritance = dObject->__FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE();
+				if (std::is_same_v<COMPARE_TYPE, FromType> == true && is_multiple_inheritance == false)
+				{
+					return true;
+				}
+				else if (is_multiple_inheritance == false)
+				{
+					const __fast_runtime_type_casting_details::BaseChain& this_base_chain = dObject->__FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN();
+					const bool isChild = (this_base_chain.mChainCount >= COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()) && (this_base_chain.mChainData[this_base_chain.mChainCount - COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()] == COMPARE_TYPE::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC());
+					return isChild;
+				}
+				else
+				{
+					return fast_dcast::fast_dynamic_cast<COMPARE_TYPE*>(dObject) != nullptr;
+				}
+			}
+			
+		}
+
+		
+	}
+
+
 }
 
 
