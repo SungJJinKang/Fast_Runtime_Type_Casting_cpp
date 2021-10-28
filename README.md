@@ -22,7 +22,7 @@ Fast Runtime Type Casting is 2.0x faster than dynamic_cast ( if classes don't ha
 ## How Works
 
 
-### If Class doesn't have multiple inheritance
+### If Class doesn't have multiple inheritance ( Always fast )
 
 1. Every Class's class hierarchy data is evaluated at compile time and stored as static variable in the class
 ```
@@ -40,7 +40,7 @@ Second. If not, check if " Object A's Hierarchy Depth ( get with virtual fucntio
 Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierarchy Depth - Type Q's Hierarchy Depth ] == Type Q's TypeID. If yse, Casting success. Or Casting Fail and return nullptr.
 ```
 
-### If Class have(!) multiple inheritance
+### If Class have(!) multiple inheritance ( Sometimes Slow )
 
 This algorithm is used [https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec](https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec)
 
