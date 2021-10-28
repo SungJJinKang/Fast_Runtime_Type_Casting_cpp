@@ -22,7 +22,7 @@ Fast Runtime Type Casting is 2.0x faster than dynamic_cast ( if classes don't ha
 ## How Works
 
 
-### If Class doesn't have multiple inheritance ( Always fast )
+### If Class doesn't have multiple inheritance ( Best Case, Always fast )
 
 1. Every Class's class hierarchy data is evaluated at compile time and stored as static variable in the class
 ```
