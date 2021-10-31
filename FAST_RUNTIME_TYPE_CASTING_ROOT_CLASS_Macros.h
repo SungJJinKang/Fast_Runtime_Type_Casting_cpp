@@ -159,12 +159,12 @@ namespace __fast_runtime_type_casting_details
 	{																										\
 		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN;														\
 	}																										\
-	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }	\
-	virtual const char* const * __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const {					\
+	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const override { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }	\
+	virtual const char* const * __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const override {			\
 	static_assert(__fast_runtime_type_casting_details::__FAST_RUNTIME_TYPE_CASTING_CHECK_IS_BASE_OF_MULTIPLE<std::decay<decltype(*this)>::type, __VA_ARGS__>::value == true, "Current Class Type is not derived from Passed Base ClassType is passed");	\
 	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }											\
-	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC(); }	\
-	virtual bool __FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const { return __FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE; }								\
+	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const override { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC(); }	\
+	virtual bool __FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const override { return __FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE; }								\
 
 #endif
 

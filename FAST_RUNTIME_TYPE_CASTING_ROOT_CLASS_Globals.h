@@ -81,7 +81,7 @@ namespace __fast_runtime_type_casting_details
 			return (fast_cast::IsChildOf<__FAST_RUNTIME_TYPE_CASTING_REMOVE_POINTER_T(ToCastingType)>(dObject) == true) ? (reinterpret_cast<ToCastingType>(dObject)) : (nullptr); // reinterpret_cast is acceptable, because every root class has virtual table.
 		}
 		else
-		{// use https://github.com/SungJJinKang/FastDynamicCast
+		{// use https://github.com/tobspr/FastDynamicCast
 			return fast_dcast::fast_dynamic_cast<ToCastingType>(dObject);
 		}		
 	}
