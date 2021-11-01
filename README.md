@@ -43,7 +43,7 @@ Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierar
 
 ### If Class have(!) multiple inheritance in its class hierarchy ( sometimes use dynamic_cast -> sometimes slow )
 
-This algorithm is used [https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec](https://github.com/SungJJinKang/FastDynamicCast/tree/1bf5c0397cda076724da77d1284293f2e9985bec)
+This algorithm is used [https://github.com/tobspr/FastDynamicCast](https://github.com/tobspr/FastDynamicCast)
 
 ## HOW TO USE
 ```
