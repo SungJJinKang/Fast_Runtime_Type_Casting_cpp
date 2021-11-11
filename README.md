@@ -41,7 +41,7 @@ Second. If not, check if " Object A's Hierarchy Depth ( get with virtual fucntio
 Third. If not, Check if " Object A's Hierarchy Data Container[ Object A's Hierarchy Depth - Type Q's Hierarchy Depth ] == Type Q's TypeID. If yse, Casting success. Or Casting Fail and return nullptr.
 ```
 
-### If Class have(!) multiple inheritance in its class hierarchy ( sometimes use dynamic_cast -> sometimes slow )
+### If Class has(!) multiple inheritance in its class hierarchy ( sometimes use dynamic_cast -> sometimes slow )
 
 This algorithm is used [https://github.com/tobspr/FastDynamicCast](https://github.com/tobspr/FastDynamicCast)
 
