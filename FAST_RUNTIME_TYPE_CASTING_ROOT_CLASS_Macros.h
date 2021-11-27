@@ -32,7 +32,7 @@ namespace __fast_runtime_type_casting_details
 {
 	//!!!!!!!!!!!!
 	//Never change static to extern. static give hint to compiler that this definition is used only in source file(.cpp)
-	//								 Then Compiler remove this functions definition from compiler if it is called only at compile time
+	//Then Compiler remove this functions definition from compiler because this function is called only at compile time
 	template <typename BASE_TYPE_CLASS>
 	static constexpr void BASE_CHAIN_HILLCLIMB_COUNT(size_t& base_chain_count)
 	{
