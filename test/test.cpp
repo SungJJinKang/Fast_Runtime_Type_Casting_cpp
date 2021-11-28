@@ -65,16 +65,16 @@ int main()
 
 	assert(fast_cast::CastTo<D*>(dd) != nullptr); // Be Cast at compile time
 
-	static_assert(C::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
-	static_assert(D::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
-	static_assert(E::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
-	static_assert(F::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == true); // Be Cast at compile time
-	static_assert(G::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == true); // Be Cast at compile time
+	static_assert(C::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
+	static_assert(D::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
+	static_assert(E::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false); // Be Cast at compile time
+	static_assert(F::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == true); // Be Cast at compile time
+	static_assert(G::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == true); // Be Cast at compile time
 
 
 	D* dObjectD_multiple_inheritance = new G();
 	assert(fast_cast::CastTo<G*>(dObjectD_multiple_inheritance) != nullptr); 
-	assert(dObjectD_multiple_inheritance->__FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA()[0] == nullptr);
+	assert(dObjectD_multiple_inheritance->FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA()[0] == nullptr);
 	assert(fast_cast::CastTo<G*>(dObjectD_multiple_inheritance) == dynamic_cast<G*>(dObjectD_multiple_inheritance)); 
 	assert(dObjectD_multiple_inheritance->IsChildOf<F>() == true);
 	assert(dObjectD_multiple_inheritance->IsChildOf<D>() == true);

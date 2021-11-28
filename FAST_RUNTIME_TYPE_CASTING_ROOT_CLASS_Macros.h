@@ -8,18 +8,18 @@
 
 #include "MultipleInheritance/FastDynamicCast/fast_dynamic_cast.h"
 
-#ifndef __FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP
+#ifndef FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP
 
-#define __FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(CURRENT_CLASS_TYPE)																				\
+#define FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(CURRENT_CLASS_TYPE)																				\
 		public:																																	\
-		constexpr static const char* const __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID = #CURRENT_CLASS_TYPE;										\
+		constexpr static const char* const FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID = #CURRENT_CLASS_TYPE;										\
 		public:																																	\
-		__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC() {										\
-			return __FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;																					\
+		FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC() {										\
+			return FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;																					\
 		}																																		\
         virtual const char* __FAST_RUNTIME_TYPE_CASTING_GET_CLASS_TYPE_ID() const {																\
 		static_assert(std::is_same_v<std::decay<decltype(*this)>::type, CURRENT_CLASS_TYPE> == true, "Wrong Current ClassType is passed ");		\
-		return CURRENT_CLASS_TYPE::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC(); }	
+		return CURRENT_CLASS_TYPE::FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID_STATIC(); }	
 
 #endif
 
@@ -28,7 +28,7 @@
 /////////////////////////////////
 
 
-namespace __fast_runtime_type_casting_details
+namespace fast_runtime_type_casting_details
 {
 	//!!!!!!!!!!!!
 	//Never change static to extern. static give hint to compiler that this definition is used only in source file(.cpp)
@@ -37,9 +37,9 @@ namespace __fast_runtime_type_casting_details
 	static constexpr void BASE_CHAIN_HILLCLIMB_COUNT(size_t& base_chain_count)
 	{
 		base_chain_count++;
-		if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+		if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 		{
-			__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<typename BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(base_chain_count);
+			fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<typename BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(base_chain_count);
 		}
 	}
 
@@ -48,11 +48,11 @@ namespace __fast_runtime_type_casting_details
 	{
 		size_t base_chain_count = 1;
 
-		if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false)
+		if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false)
 		{
-			if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+			if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 			{
-				__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<typename BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(base_chain_count);
+				fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<typename BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(base_chain_count);
 			}
 		}
 
@@ -62,11 +62,11 @@ namespace __fast_runtime_type_casting_details
 	template <typename BASE_TYPE_CLASS, size_t COUNT>
 	static constexpr void BASE_CHAIN_HILLCLIMB_DATA(size_t& count, std::array<const char*, COUNT>& chain_data)
 	{
-		chain_data[count] = BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;
+		chain_data[count] = BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;
 		count++;
-		if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+		if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 		{
-			__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<typename BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(count, chain_data);
+			fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<typename BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(count, chain_data);
 		}
 	}
 
@@ -75,13 +75,13 @@ namespace __fast_runtime_type_casting_details
 	{
 		std::array<const char*, COUNT> chain_data{};
 
-		if constexpr(BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false)
+		if constexpr(BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE == false)
 		{
-			chain_data[0] = BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;
-			if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+			chain_data[0] = BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_CLASS_TYPE_ID;
+			if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 			{
 				size_t count = 1;
-				__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<typename BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(count, chain_data);
+				fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<typename BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(count, chain_data);
 			}
 		}
 		else
@@ -96,13 +96,13 @@ namespace __fast_runtime_type_casting_details
 	template <typename BASE_TYPE_CLASS>
 	static constexpr void BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE(bool& have_multiple_inheritance)
 	{
-		if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_COUNT > 1)
+		if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_COUNT > 1)
 		{
 			have_multiple_inheritance = true;
 		}
-		else if constexpr (BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+		else if constexpr (BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 		{
-			__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<typename BASE_TYPE_CLASS::template __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(have_multiple_inheritance);
+			fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<typename BASE_TYPE_CLASS::template FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE<0>>(have_multiple_inheritance);
 		}
 	}
 
@@ -111,9 +111,9 @@ namespace __fast_runtime_type_casting_details
 	{
 		bool have_multiple_inheritance = false;
 
-		if constexpr (BASE_TYPE_CLASS::__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
+		if constexpr (BASE_TYPE_CLASS::FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS == false)
 		{
-			__fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<BASE_TYPE_CLASS>(have_multiple_inheritance);
+			fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<BASE_TYPE_CLASS>(have_multiple_inheritance);
 		}
 
 		return have_multiple_inheritance;
@@ -133,38 +133,38 @@ namespace __fast_runtime_type_casting_details
 }
 
 
-#ifndef __FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN
+#ifndef FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN
 
-#define __FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN(...)													\
+#define FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN(...)													\
 	public:																									\
-	constexpr static const size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_COUNT = __FAST_RUNTIME_TYPE_CASTING_TYPE_COUNT(__VA_ARGS__);	\
-	constexpr static const bool	__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS = false;							\
+	constexpr static const size_t FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_COUNT = FAST_RUNTIME_TYPE_CASTING_TYPE_COUNT(__VA_ARGS__);	\
+	constexpr static const bool	FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS = false;							\
 	template <size_t TYPE_INDEX>																			\
-	using __FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE = __fast_runtime_type_casting_details::NthTypeOfParameterPack<TYPE_INDEX, __VA_ARGS__>;						\
-	constexpr static const bool __FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
+	using FAST_RUNTIME_TYPE_CASTING_BASE_CLASS_TYPE = fast_runtime_type_casting_details::NthTypeOfParameterPack<TYPE_INDEX, __VA_ARGS__>;						\
+	constexpr static const bool FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE = fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_CHECK_MULTIPLE_INHERITANCE<FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
 	private:																								\
-	constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
-	constexpr static const std::array<const char*, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT> __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA = __fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<__FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT>();			\
-	constexpr static const __fast_runtime_type_casting_details::BaseChain __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN{ __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT, __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA.data() };		\
+	constexpr static size_t FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT = fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_COUNT<FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE>();		\
+	constexpr static const std::array<const char*, FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT> FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA = fast_runtime_type_casting_details::BASE_CHAIN_HILLCLIMB_DATA<FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE, FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT>();			\
+	constexpr static const fast_runtime_type_casting_details::BaseChain FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN{ FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT, FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA.data() };		\
 	public:																									\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()			\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()			\
 	{																										\
-		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainCount;											\
+		return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainCount;											\
 	}																										\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const * __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const * FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()\
 	{																										\
-		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainData;											\
+		return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainData;											\
 	}																										\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC()\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const fast_runtime_type_casting_details::BaseChain& FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC()\
 	{																										\
-		return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN;														\
+		return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN;														\
 	}																										\
-	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const override { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }	\
-	virtual const char* const * __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const override {			\
-	static_assert(__fast_runtime_type_casting_details::__FAST_RUNTIME_TYPE_CASTING_CHECK_IS_BASE_OF_MULTIPLE<std::decay<decltype(*this)>::type, __VA_ARGS__>::value == true, "Current Class Type is not derived from Passed Base ClassType is passed");	\
-	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }											\
-	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const override { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC(); }	\
-	virtual bool __FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const override { return __FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE; }								\
+	virtual size_t FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const override { return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }	\
+	virtual const char* const * FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const override {			\
+	static_assert(fast_runtime_type_casting_details::FAST_RUNTIME_TYPE_CASTING_CHECK_IS_BASE_OF_MULTIPLE<std::decay<decltype(*this)>::type, __VA_ARGS__>::value == true, "Current Class Type is not derived from Passed Base ClassType is passed");	\
+	return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }											\
+	virtual const fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const override { return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_STATIC(); }	\
+	virtual bool FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const override { return FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE; }								\
 
 #endif
 
@@ -174,9 +174,9 @@ namespace __fast_runtime_type_casting_details
 
 #define FAST_RUNTIME_TYPE_CASTING_CLASS_BODY(CURRENT_CLASS_TYPE, ...)						\
 		public:																				\
-		using __FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE = CURRENT_CLASS_TYPE;				\
-		__FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(CURRENT_CLASS_TYPE)							\
-		__FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN(__VA_ARGS__)							\
+		using FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE = CURRENT_CLASS_TYPE;				\
+		FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(CURRENT_CLASS_TYPE)							\
+		FAST_RUNTIME_TYPE_CASTING_CLASS_BASE_CHAIN(__VA_ARGS__)							\
 		private:
 
 #endif
@@ -188,31 +188,31 @@ namespace __fast_runtime_type_casting_details
 
 #define FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY_BASE_CHAIN(TYPE_NAME)		\
 public:																		\
-	using __FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE = TYPE_NAME;				\
+	using FAST_RUNTIME_TYPE_CASTING_CURRENT_TYPE = TYPE_NAME;				\
 private:																																										\
-	constexpr static const __fast_runtime_type_casting_details::BaseChain __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN{ 1, nullptr };													\
+	constexpr static const fast_runtime_type_casting_details::BaseChain FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN{ 1, nullptr };													\
 public:																																											\
-	constexpr static const bool	__FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS = true;																								\
+	constexpr static const bool	FAST_RUNTIME_TYPE_CASTING_IS_ROOT_CLASS = true;																								\
 	constexpr static const bool	__FAST_RUNTIME_TYPE_CASTING_IS_INHERITING_ROOT_CLASS = true;																					\
-	constexpr static const bool __FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE = false;																					\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()														\
+	constexpr static const bool FAST_RUNTIME_TYPE_CASTING_HAVE_MULTIPLE_INHERITANCE = false;																					\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static size_t FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC()														\
 	{																																											\
-	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainCount;																												\
+	return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainCount;																												\
 	}																																											\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const* __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()											\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const char* const* FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC()											\
 	{																																											\
-	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainData;																												\
+	return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN.mChainData;																												\
 	}																																											\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA()				\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE constexpr static const fast_runtime_type_casting_details::BaseChain& FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA()				\
 	{																																											\
-	return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN;																															\
+	return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN;																															\
 	}																																											\
-	virtual size_t __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }									\
-	virtual const char* const* __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }							\
-	virtual const __fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const { return __FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA(); }	\
-	virtual bool __FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const { return false; }																			\
+	virtual size_t FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_COUNT() const { return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_COUNT_STATIC(); }									\
+	virtual const char* const* FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN_DATA() const { return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA_STATIC(); }							\
+	virtual const fast_runtime_type_casting_details::BaseChain& __FAST_RUNTIME_TYPE_CASTING_GET_BASE_CHAIN() const { return FAST_RUNTIME_TYPE_CASTING_BASE_CHAIN_DATA(); }	\
+	virtual bool FAST_RUNTIME_TYPE_CASTING_GET_IS_HAVE_MULTIPLE_INHERITANCE() const { return false; }																			\
 	template <typename BASE_TYPE>																																				\
-	__FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf() const																												\
+	FAST_RUNTIME_TYPE_CASTING_FORCE_INLINE bool IsChildOf() const																												\
 	{																																											\
 		return fast_cast::IsChildOf<BASE_TYPE>(this);																															\
 	}																																											\
@@ -220,14 +220,14 @@ public:																																											\
 
 #endif
 
-#ifndef __FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS
-#define __FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(TYPE_NAME) (TYPE_NAME::__FAST_RUNTIME_TYPE_CASTING_IS_INHERITING_ROOT_CLASS == true)
+#ifndef FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS
+#define FAST_RUNTIME_TYPE_CASTING_ASSERT_IS_INHERITING_ROOT_CLASS(TYPE_NAME) (TYPE_NAME::__FAST_RUNTIME_TYPE_CASTING_IS_INHERITING_ROOT_CLASS == true)
 #endif
 
 #ifndef FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY
 
 #define FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY(TYPE_NAME)				\
-	__FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(TYPE_NAME)						\
+	FAST_RUNTIME_TYPE_CASTING_TYPE_ID_IMP(TYPE_NAME)						\
 	FAST_RUNTIME_TYPE_CASTING_ROOT_CLASS_BODY_BASE_CHAIN(TYPE_NAME)			\
 
 #endif
