@@ -1,7 +1,13 @@
 # Fast Runtime Type Casting
 
-This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( similar to Unreal Engine's CastTo, IsChildOf ).          
-You can apply this library to your project with only two code lines for each class.        
+This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( inspired by Unreal Engine's Type Casting ).          
+
+This library is for explaining algorithm.            
+Template codes in this library may make build time slow. So I don't recommend using this library in your project.      
+
+So I applied this algorithm to [my game engine project](https://github.com/SungJJinKang/DoomsEngine) using [reflection system](https://github.com/SungJJinKang/clReflect_ForDoomsEngine).            
+It doesn't require template codes and bothersome macros.      
+Reflection system automatically generate datas for this algorithm. ( ex. check "BASE_CHAIN_LIST" data https://github.com/SungJJinKang/clReflect_ForDoomsEngine/blob/doom_engine_version/src/clReflectScan/example/PlainComponent.reflection.h. if you have used unreal engine, you can see same thing in generated.h file )            
 
 [한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
 
