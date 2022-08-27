@@ -21,13 +21,6 @@ Reflection system automatically generate datas for this algorithm. ( ex. check "
 
 ( This library use a lot of template codes to generate datas for fast type casting. But Don't worry the template codes will be removed from object file. Because it's declared with internal linking option and it's called only at compile time ) 
 
-## Performance
-
-<img width="437" alt="20211023013700" src="https://user-images.githubusercontent.com/33873804/138491569-e507bfb8-be3b-4d3e-989e-54abe565a927.png">
-
-Fast Runtime Type Casting is 2.0x faster than dynamic_cast ( if classes don't have multiple inheritance ).                
-This is tested on classes with very shallow class hierarchy
-
 ## How Works
 
 
