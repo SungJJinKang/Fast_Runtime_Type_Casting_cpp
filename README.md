@@ -9,7 +9,7 @@ So I applied this algorithm to [my game engine project](https://github.com/SungJ
 It doesn't require template codes and bothersome macros.      
 Reflection system automatically generate datas for this algorithm. ( ex. check "BASE_CHAIN_LIST" data https://github.com/SungJJinKang/clReflect_ForDoomsEngine/blob/doom_engine_version/src/clReflectScan/example/PlainComponent.reflection.h. if you have used unreal engine, you can see same thing in generated.h file )            
 
-[한국어 블로그](https://sungjjinkang.github.io/computerscience/c++/2021/10/24/fast_dynamic_cast.html)
+[한국어 블로그](https://sungjjinkang.github.io/fast_dynamic_cast)
 
 ## Features
 
