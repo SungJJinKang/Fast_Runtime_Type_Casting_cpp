@@ -1,5 +1,6 @@
 # Fast Runtime Type Casting
 
+Some platforms' compilers don't support RTTI. You need alternative.         
 This library give you C++ Fast Runtime Type Casting faster than dynamic_cast ( inspired by Unreal Engine's Type Casting ).          
 
 This library is for explaining algorithm.            
